@@ -1,0 +1,66 @@
+{% load static %}
+<nav class = "col-2" id = "menubar">
+    <div class = "container py-2">
+        <div class = "row py-2">
+            <div class="text-center mb-3">
+                <img src="{% static 'main/src/omakaseTodo_logo.png' %}" height="70px" width="70px" alt="logo">
+            </div>
+            <h4 class = "text-center">
+                <a href="{% url 'index' %}"><b>おまかせTodoリスト</b></a>
+            </h4>
+        </div>
+
+        <div class = "row py-2">
+            {% if async_func %}
+            {% if user.is_authenticated %}
+
+            <div class="text-center mb-3">
+                ようこそ {{user.username}} さん
+            </div>
+            <ul>
+                <li>
+                    <a href="{% url 'create_goal' %}">新規目標作成</a>
+                </li>
+                <li>
+                    <a href="{% url 'goal_list' %}">目標一覧</a>
+                </li>
+            </ul>
+            {% else %}
+            <ul>
+                <li>
+                    <a href="{% url 'signup' %}">アカウント作成</a>
+                </li>
+                <li>
+                    <a href="{% url 'login' %}">ログイン</a>
+                </li>
+            </ul>
+            {% endif %}
+
+            {% else %}
+            {% if request.user.is_authenticated %}
+
+            <div class="text-center mb-3">
+                ようこそ {{request.user.username}} さん
+            </div>
+            <ul>
+                <li>
+                    <a href="{% url 'create_goal' %}">新規目標作成</a>
+                </li>
+                <li>
+                    <a href="{% url 'goal_list' %}">目標一覧</a>
+                </li>
+            </ul>
+            {% else %}
+            <ul>
+                <li>
+                    <a href="{% url 'signup' %}">アカウント作成</a>
+                </li>
+                <li>
+                    <a href="{% url 'login' %}">ログイン</a>
+                </li>
+            </ul>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</nav>

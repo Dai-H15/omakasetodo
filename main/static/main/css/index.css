@@ -1,0 +1,25 @@
+#menubar{
+    height: 100vh;
+    border-top-right-radius: 50px; /* 右上を丸める */
+    background-color: #bbd9fb;
+}
+
+#content{
+    background-color: white;
+    height: 100vh;
+
+}
+#menubar ul{
+    list-style: none;
+}
+
+#id_description{
+    field-sizing: content;
+    min-height: 3lh;
+    resize: none;
+
+}
+body{
+    background-color: #f5f5f5;
+    font-family: "Shin Go Regular", "メイリオ", Meiryo, sans-serif;
+}
