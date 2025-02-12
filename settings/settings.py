@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "accounts",
     "main",
+    "openai_app",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,99 @@
+<!doctype html>
+{% load static %}
+<html lang="ja">
+<head>
+    {% include "components/html_head.html" %}
+</head>
+<body>
+<div class = "container-fluid">
+    <div class = "row">
+        {% include "components/menubar.html" %}
+
+        <main class = "col-10" >
+            <div class = "container p-3" id = "content">
+                <div class="row m-4 py-3 border-bottom border-success text-success">
+                    <h4>{{goal.title}}: タスク一覧</h4>
+                </div>
+                {% if task_len <= 0 %}
+                {% if goal.task_creating %}
+                <div class = "row">
+                    <div class="text-center" id = "status">
+                        <div class="spinner-border text-primary" role="status" style="width: 6rem; height: 6rem;">
+                            <span class="visually-hidden">Loading...   </span>
+                        </div>
+                    </div>
+                    <div class = "text-center">
+                        タスクを作成中です<br>
+                        もし、しばらく経っても作成されない場合は、管理者へお問い合わせください
+                    </div>
+                    <form action="{% url 'check_task_create' goal.goal_id %}" id="check_task_create">
+                        {% csrf_token %}
+                    </form>
+                    <script>
+                        async function check_goal() {
+                        const form = document.getElementById('check_task_create')
+                        const formData = new FormData(form);
+                        try{
+                            let res = await fetch(form.action,{
+                                method: 'POST',
+                                body: formData
+                                });
+                            let data = await res.json();
+                            if(data.is_created === true){
+                                    window.location.reload();
+                                }
+                            }catch(e){
+                                console.error(e);
+                                document.getElementById("status").innerText = "ネットワークがオフラインです"
+                                clearInterval(task);
+                            }
+                    }
+                    const task = setInterval(check_goal, 1500)
+                    </script>
+                </div>
+                {% else %}
+                <div class="row m-3 ">
+                    <div class="col alert alert-success text-center">
+                        まだタスクが作成されていません。
+                        <a class="btn btn-success m-2" href="{% url 'create_task' goal.goal_id %}">
+                            タスク作成を依頼する
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                <div class = "row m-3">
+                    <table class = "table">
+                        <thead>
+                        <tr>
+                            <th scope="col">タスク名</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                            <tr>
+                                <th scope="row">{{task.title}}</th>
+                                <td>
+                                    <div class="btn-group" role="group">
+
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row d-flex justify-content-center m-4">
+                    <a class="btn btn-primary col-2" href="{% url 'goal_list' %}">
+                            一覧へ戻る
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</body>
+</html>

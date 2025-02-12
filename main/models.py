@@ -10,7 +10,10 @@ class Goal(models.Model):
     description = models.TextField()
     is_created = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
+    start_date = models.DateField(auto_now_add=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
     inappropriate_flag = models.BooleanField(default=False)
+    task_creating = models.BooleanField(default=False)
 
 
 class Task(models.Model):

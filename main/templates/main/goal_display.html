@@ -1,0 +1,53 @@
+<!doctype html>
+{% load static %}
+{% load django_bootstrap5 %}
+<html lang="ja">
+<head>
+    {% include "components/html_head.html" %}
+</head>
+<body>
+<div class = "container-fluid">
+    <div class = "row">
+        {% include "components/menubar.html" %}
+
+        <main class = "col-10" >
+            <div class = "container p-3 " id = "content">
+                <div class="row m-4 py-3 border-bottom border-success text-success">
+                    <h4>目標閲覧</h4>
+                </div>
+                <div class = "row border-bottom m-3">
+                        <div class="mb-3">
+                            <label class="form-label" for="id_title">目標のタイトル</label>
+                            <input type="text" name="title" id="id_title" class="form-control" value="{{goal.title}}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="id_description">目標の説明・内容</label>
+                            <textarea name="description" class="form-control" id="id_description" disabled>{{goal.description}}</textarea>
+                        </div>
+                </div>
+
+                 <div class="row m-4 py-3 border-bottom border-success text-success">
+                    <h4>各種操作</h4>
+                </div>
+                <div class = "row border-bottom m-3 ">
+                    <div class="mb-4 d-flex justify-content-center">
+                        <a class="col-2 btn btn-outline-info mx-auto" href="{% url 'task_list' goal.goal_id %}">タスク一覧へ</a>
+                        <button class="col-2 btn btn-outline-success mx-auto">目標を達成済みに変更</button>
+                        <a class="col-2 btn btn-outline-danger mx-auto" href="{% url 'goal_delete' goal.goal_id %}">タスク削除</a>
+                    </div>
+
+                </div>
+                <div class="row d-flex justify-content-center m-4">
+                    <a class="btn btn-primary col-2" href="{% url 'goal_list' %}">
+                            一覧へ戻る
+                    </a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</body>
+</html>

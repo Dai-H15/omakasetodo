@@ -2,10 +2,7 @@
 {% load static %}
 <html lang="ja">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>おまかせTodoリスト</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href=" {% static 'main/css/index.css' %} ">
+    {% include "components/html_head.html" %}
 </head>
 <body>
 <div class = "container-fluid">
@@ -14,11 +11,17 @@
 
         <main class = "col-10" >
             <div class = "container p-3" id = "content">
-                <div class = "row">
+                <div class="row m-4 py-3 border-bottom border-success text-success">
+                    <h4>目標一覧</h4>
+                </div>
+                <div class = "row m-3">
                     <table class = "table">
                         <thead>
                         <tr>
                             <th scope="col">タイトル</th>
+                            <th scope="col">作成日時</th>
+                            <th scope="col">完了日時</th>
+                            <th scope="col"> タスク作成有無 </th>
                             <th scope="col">操作</th>
                         </tr>
                         </thead>
@@ -26,15 +29,38 @@
                             {% for goal in goals %}
                             <tr>
                                 <th scope="row">{{goal.title}}</th>
-                                <td> ほげ</td>
+                                <td>{{goal.start_date}}</td>
+                                <td>
+                                    {% if goal.end_date %}
+                                    {{goal.end_date}}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if goal.task_creating %}
+                                    <i class="bi bi-check2-circle fs-2 "></i>
+                                    {%else%}
+                                    <i class="bi bi-dash fs-2 "></i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            操作
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="{% url 'goal_display' goal.goal_id %}" class="dropdown-item bg-success text-white"> 閲覧 </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'goal_delete' goal.goal_id %}" class="dropdown-item bg-danger text-white"> 削除 </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
-
-
                     </table>
-
-
                 </div>
             </div>
         </main>

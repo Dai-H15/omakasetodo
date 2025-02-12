@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% load django_bootstrap5 %}
 <html lang="ja">
 <head>
     {% include "components/html_head.html" %}
@@ -12,7 +13,10 @@
         <main class = "col-10" >
             <div class = "container p-3" id = "content">
                 <div class = "row">
-
+                    <div class="alert alert-danger col-3 mx-auto my-3 text-center">
+                        <i class="bi bi-x-circle-fill fs-2"></i><br>
+                        不正な操作です。
+                    </div>
                 </div>
             </div>
         </main>

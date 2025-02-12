@@ -24,6 +24,9 @@
                 <li>
                     <a href="{% url 'goal_list' %}">目標一覧</a>
                 </li>
+                <li>
+                    <div onclick="logout()">ログアウト</div>
+                </li>
             </ul>
             {% else %}
             <ul>
@@ -34,6 +37,7 @@
                     <a href="{% url 'login' %}">ログイン</a>
                 </li>
             </ul>
+
             {% endif %}
 
             {% else %}
@@ -48,6 +52,9 @@
                 </li>
                 <li>
                     <a href="{% url 'goal_list' %}">目標一覧</a>
+                </li>
+                <li>
+                    <div onclick="logout()" >ログアウト</div>
                 </li>
             </ul>
             {% else %}
@@ -64,3 +71,11 @@
         </div>
     </div>
 </nav>
+<form method="post" action="{% url 'logout' %}" id = "logout" hidden>
+                {% csrf_token %}
+            </form>
+            <script>
+                function logout(){
+                    document.getElementById("logout").submit()
+                }
+            </script>

@@ -2,3 +2,6 @@ Django>=5.1.1
 django-bootstrap5
 
 asgiref>=3.8.1
+openai>=1.43.0
+pydantic>=2.8.2
+google-api-python-client>=2.147.0
