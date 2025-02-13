@@ -25,9 +25,11 @@ class Task(models.Model):
     priority = models.IntegerField()
     done_flag = models.BooleanField(default=False)
     is_create_task_help = models.BooleanField(default=False)
+    task_help_create_completed = models.BooleanField(default=False)
 
 
 class TaskHelp(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="Task_help")
+    title = models.CharField(max_length=200, default="default")
     help_text = models.TextField()
     related_url = models.TextField()

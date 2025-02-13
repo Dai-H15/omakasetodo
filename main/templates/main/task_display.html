@@ -29,6 +29,9 @@
                         {% bootstrap_form form %}
                         <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success col-2  mx-auto">更新する</button>
+                            <a class="btn btn-info col-2 mx-auto text-white" href="{% url 'task_help_display' goal_id=goal.goal_id task_id=task.task_id%}">
+                            アシスト
+                            </a>
                             <a class="btn btn-primary col-2 mx-auto" href="{% url 'task_list' goal.goal_id %}">
                             一覧へ戻る
                             </a>

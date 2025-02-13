@@ -3,13 +3,13 @@ from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse, reverse
 from django.utils import timezone
 from main.form import CreateGoalForm, TaskForm
-from main.models import Goal, Task
+from main.models import Goal, Task, TaskHelp
 import secrets
 import asyncio
 from asgiref.sync import sync_to_async
 import time
 from django.core.paginator import Paginator
-from openai_app.views import goal_moderation, task_fetch
+from openai_app.views import goal_moderation, task_fetch, task_help_fetch
 
 
 # Create your views here.
@@ -235,6 +235,68 @@ def task_done(request, goal_id, task_id):
     request.session["task_done_set"] = True
     return redirect("task_list",goal_id=goal_id)
 
+
+def task_help_display(request, goal_id, task_id):
+    contexts = {}
+    try:
+        goal = Goal.objects.get(goal_id=goal_id, user=request.user)
+    except Goal.DoesNotExist:
+        return return_error_page(request)
+    try:
+        task = Task.objects.get(goal=goal, task_id=task_id)
+    except Task.DoesNotExist:
+        return return_error_page(request)
+    task_help = TaskHelp.objects.filter(task=task)
+    paginator = Paginator(task_help, 2)
+    if "page" in request.GET:
+        try:
+            page = int(request.GET["page"])
+        except ValueError:
+            page = 1
+        if page < paginator.num_pages + 1:
+            page = request.GET["page"]
+    else:
+        page = 1
+    contexts["task_help"] = paginator.get_page(page)
+    contexts["pages"] = range(1, paginator.num_pages + 1)
+    contexts["current"] = int(page)
+    contexts["task"] = task
+    contexts["goal"] = goal
+    return render(request, "main/task_help_display.html", contexts)
+
+async def create_task_help(request, goal_id, task_id):
+    contexts = {}
+    try:
+        goal = await Goal.objects.aget(goal_id=goal_id, user=request.user)
+    except Goal.DoesNotExist:
+        return return_error_page(request)
+    try:
+        task = await Task.objects.aget(goal=goal, task_id=task_id)
+    except Task.DoesNotExist:
+        return return_error_page(request)
+    if not task.is_create_task_help:
+        asyncio.create_task(sync_to_async(task_help_fetch, thread_sensitive=False)(goal, task))
+        task.is_create_task_help = True
+        await task.asave()
+        contexts["task_help_creating"] = True
+    contexts["task"] = task
+    contexts["goal"] = goal
+    return render(request, "main/task_help_display.html", contexts)
+
+def check_task_help_create(request, goal_id, task_id):
+    try:
+        goal = Goal.objects.get(goal_id=goal_id, user=request.user)
+    except Goal.DoesNotExist:
+        return return_error_page(request)
+    try:
+        task = Task.objects.get(goal=goal, task_id=task_id)
+    except Task.DoesNotExist:
+        return return_error_page(request)
+    if task.task_help_create_completed:
+        res = {"is_created" :True, "next": reverse("task_help_display", kwargs={"goal_id": goal_id, "task_id": task_id})}
+    else:
+        res = {"is_created": False}
+    return JsonResponse(res)
 
 def moderate_goal(goal):
     print("creating.")

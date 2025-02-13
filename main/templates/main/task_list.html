@@ -52,7 +52,7 @@
                     </script>
                 </div>
                 {% else %}
-                <div class="row m-3 ">
+                <div class="row m-3">
                     <div class="col alert alert-success text-center">
                         まだタスクが作成されていません。
                         <a class="btn btn-success m-2" href="{% url 'create_task' goal.goal_id %}">
@@ -78,6 +78,7 @@
                             <th scope="col">タスク名</th>
                             <th scope="col">開始日</th>
                             <th scope="col">優先度</th>
+                            <th scope="col">アシスト情報有無</th>
                             <th scope="col"> 操作 </th>
                         </tr>
                         </thead>
@@ -108,6 +109,13 @@
                                     </div>
                                 </td>
                                 <td>{{task.priority}}</td>
+                                <td>
+                                    {% if task.is_create_task_help %}
+                                        <i class="bi bi-check-circle fs-3 text-success"></i>
+                                        {% else %}
+                                        <i class="bi bi-dash-circle fs-3 text-secondary"></i>
+                                        {% endif %}
+                                </td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

@@ -13,7 +13,7 @@
     list-style: none;
 }
 
-#id_description{
+textarea{
     field-sizing: content;
     min-height: 3lh;
     resize: none;
