@@ -17,9 +17,17 @@ class Goal(models.Model):
 
 
 class Task(models.Model):
+    task_id = models.CharField(max_length=200, default="default")
     goal = models.ForeignKey(Goal, on_delete=models.CASCADE, related_name='tasks')
     title = models.CharField(max_length=200)
     start_date = models.DateField(blank=True, null=True)
     description = models.TextField()
     priority = models.IntegerField()
     done_flag = models.BooleanField(default=False)
+    is_create_task_help = models.BooleanField(default=False)
+
+
+class TaskHelp(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="Task_help")
+    help_text = models.TextField()
+    related_url = models.TextField()

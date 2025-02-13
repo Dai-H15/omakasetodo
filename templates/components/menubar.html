@@ -1,5 +1,5 @@
 {% load static %}
-<nav class = "col-2" id = "menubar">
+<nav class = "col-2 px-0" id = "menubar">
     <div class = "container py-2">
         <div class = "row py-2">
             <div class="text-center mb-3">
@@ -9,32 +9,48 @@
                 <a href="{% url 'index' %}"><b>おまかせTodoリスト</b></a>
             </h4>
         </div>
-
         <div class = "row py-2">
             {% if async_func %}
             {% if user.is_authenticated %}
-
             <div class="text-center mb-3">
                 ようこそ {{user.username}} さん
             </div>
-            <ul>
+            <ul class=" px-0">
                 <li>
-                    <a href="{% url 'create_goal' %}">新規目標作成</a>
+                    <a href="{% url 'create_goal' %}">
+                    <div class="p-4 menu_item" >
+                        新規目標作成
+                    </div>
+                    </a>
                 </li>
                 <li>
-                    <a href="{% url 'goal_list' %}">目標一覧</a>
+                    <a href="{% url 'goal_list' %}">
+                    <div class="p-4 menu_item" >
+                        目標一覧
+                    </div>
+                    </a>
                 </li>
                 <li>
-                    <div onclick="logout()">ログアウト</div>
+                    <div class="p-4 menu_item" onclick="logout()">
+                        ログアウト
+                    </div>
                 </li>
             </ul>
             {% else %}
-            <ul>
+            <ul class=" px-0">
                 <li>
-                    <a href="{% url 'signup' %}">アカウント作成</a>
+                    <a href="{% url 'signup' %}">
+                    <div class="p-4 menu_item" >
+                        アカウント作成
+                    </div>
+                    </a>
                 </li>
                 <li>
-                    <a href="{% url 'login' %}">ログイン</a>
+                    <a href="{% url 'login' %}">
+                    <div class="p-4 menu_item">
+                        ログイン
+                    </div>
+                    </a>
                 </li>
             </ul>
 
@@ -46,24 +62,39 @@
             <div class="text-center mb-3">
                 ようこそ {{request.user.username}} さん
             </div>
-            <ul>
+            <ul class=" px-0">
                 <li>
-                    <a href="{% url 'create_goal' %}">新規目標作成</a>
+                    <a href="{% url 'create_goal' %}">
+                    <div class="p-4 menu_item" >
+                        新規目標作成
+                    </div>
+                    </a>
                 </li>
                 <li>
-                    <a href="{% url 'goal_list' %}">目標一覧</a>
+                    <a href="{% url 'goal_list' %}">
+                    <div class="p-4 menu_item" >
+                        目標一覧
+                    </div>
+                    </a>
                 </li>
                 <li>
-                    <div onclick="logout()" >ログアウト</div>
+                    <div class="p-4 menu_item" onclick="logout()" >
+                        ログアウト
+                    </div>
                 </li>
             </ul>
             {% else %}
-            <ul>
-                <li>
-                    <a href="{% url 'signup' %}">アカウント作成</a>
+            <ul class=" px-0">
+                <li><a href="{% url 'signup' %}">
+                    <div class="p-4 menu_item" >
+                        アカウント作成
+                    </div>
+                </a>
                 </li>
-                <li>
-                    <a href="{% url 'login' %}">ログイン</a>
+                <li><a href="{% url 'login' %}">
+                    <div class="p-4 menu_item">
+                        ログイン
+                    </div></a>
                 </li>
             </ul>
             {% endif %}

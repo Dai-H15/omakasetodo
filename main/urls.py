@@ -10,5 +10,8 @@ urlpatterns = [
     path("goal_display/<str:goal_id>", views.goal_display, name="goal_display"),
     path("task_list/<str:goal_id>", views.task_list, name="task_list"),
     path("create_task/<str:goal_id>", views.create_task, name="create_task"),
-    path("check_task_create/<str:goal_id>", views.check_task_create, name="check_task_create")
+    path("check_task_create/<str:goal_id>", views.check_task_create, name="check_task_create"),
+    path("goal_achievement/<str:goal_id>", views.goal_achievement, name="goal_achievement"),
+    path("task_display/<str:goal_id>/<str:task_id>", views.task_display, name="task_display"),
+    path("task_done/<str:goal_id>/<str:task_id>", views.task_done, name="task_done")
 ]

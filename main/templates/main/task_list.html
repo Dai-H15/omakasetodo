@@ -62,21 +62,65 @@
                 </div>
                 {% endif %}
                 {% endif %}
+                {% if task_done_set %}
+                    <div class="d-flex justify-content-center">
+                    <div class="alert alert-success m-4 col-3  text-center">
+                            <i class="bi bi-database-check fs-2"></i>
+                            保存が完了しました
+                    </div>
+                </div>
+                {% endif %}
                 <div class = "row m-3">
                     <table class = "table">
                         <thead>
                         <tr>
+                            <th scope="col">ステータス</th>
                             <th scope="col">タスク名</th>
-                            <th scope="col"></th>
+                            <th scope="col">開始日</th>
+                            <th scope="col">優先度</th>
+                            <th scope="col"> 操作 </th>
                         </tr>
                         </thead>
                         <tbody>
                             {% for task in tasks %}
                             <tr>
-                                <th scope="row">{{task.title}}</th>
+                                <th scope="row">
+                                    <div class="d-flex justify-content-center">
+                                        {% if task.done_flag %}
+                                        <i class="bi bi-check-circle fs-3 text-success"></i>
+                                        {% else %}
+                                        {% if task.start_date %}
+                                        <i class="bi bi-pencil text-danger fs-3"></i>
+                                        {% else %}
+                                        <i class="bi bi-dash-circle fs-3 text-secondary"></i>
+                                        {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </th>
+                                <td>{{task.title}}</td>
+                                <td >
+                                    <div class="d-flex justify-content-center">
+                                       {% if task.start_date %}
+                                        {{task.start_date}}
+                                        {% else %}
+                                        <i class="bi bi-calendar-minus fs-3"></i>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>{{task.priority}}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            操作
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="{% url 'task_display' goal_id=goal.goal_id task_id=task.task_id %}" class="dropdown-item bg-success text-white"> 閲覧 </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'task_done' goal_id=goal.goal_id task_id=task.task_id %}" class="dropdown-item bg-info text-white"> 完了としてマーク </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>

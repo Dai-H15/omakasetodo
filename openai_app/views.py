@@ -1,4 +1,5 @@
 import json
+import secrets
 
 from django.shortcuts import render
 from openai import OpenAI
@@ -44,6 +45,7 @@ def search_from_google(query):
 
 def create_task(goal:Goal,title, description, priority):
     task = Task.objects.create(
+        task_id=secrets.token_urlsafe(32),
         goal=goal,
         title=title,
         description=description,
@@ -151,7 +153,6 @@ def task_fetch(goal:Goal):
             messages=messages,
             tools=tools,
         )
-        print(messages)
         if res.choices[0].message.tool_calls:
             messages.append(res.choices[0].message)
             messages = function_call(res, goal, messages)

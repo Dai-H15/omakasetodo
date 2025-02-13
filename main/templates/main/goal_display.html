@@ -9,7 +9,6 @@
 <div class = "container-fluid">
     <div class = "row">
         {% include "components/menubar.html" %}
-
         <main class = "col-10" >
             <div class = "container p-3 " id = "content">
                 <div class="row m-4 py-3 border-bottom border-success text-success">
@@ -25,14 +24,30 @@
                             <textarea name="description" class="form-control" id="id_description" disabled>{{goal.description}}</textarea>
                         </div>
                 </div>
-
+                <div class = "row m-4 ">
+                    {% if not_completed_task_num > 0 %}
+                    <div class="alert alert-info col-3 mx-auto text-center">
+                        <i class="bi bi-info-circle-fill fs-1"></i><br>
+                        {{not_completed_task_num}} 件のタスクが残っています
+                    </div>
+                    {% endif %}
+                    {% if task_all_completed %}
+                    <div class="alert alert-success col-3 mx-auto text-center">
+                        <i class="bi bi-check-circle-fill fs-1"></i><br>
+                        タスクがすべて完了しました<br>
+                        目標を達成済みに変更してください
+                    </div>
+                    {% endif %}
+                </div>
                  <div class="row m-4 py-3 border-bottom border-success text-success">
                     <h4>各種操作</h4>
                 </div>
                 <div class = "row border-bottom m-3 ">
                     <div class="mb-4 d-flex justify-content-center">
                         <a class="col-2 btn btn-outline-info mx-auto" href="{% url 'task_list' goal.goal_id %}">タスク一覧へ</a>
-                        <button class="col-2 btn btn-outline-success mx-auto">目標を達成済みに変更</button>
+                        {% if not goal.is_completed %}
+                            <a class="col-2 btn btn-outline-success mx-auto" href="{% url 'goal_achievement' goal.goal_id %}">目標を達成済みに変更</a>
+                        {% endif %}
                         <a class="col-2 btn btn-outline-danger mx-auto" href="{% url 'goal_delete' goal.goal_id %}">タスク削除</a>
                     </div>
 
