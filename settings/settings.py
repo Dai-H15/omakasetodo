@@ -146,12 +146,22 @@ else:
 
 STATIC_URL = 'static_web/'
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8123',
+    'http://127.0.0.1:8123',
+    "https://omakasetodo.xyz/"
+]
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/"
