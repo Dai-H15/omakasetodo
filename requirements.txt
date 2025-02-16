@@ -5,3 +5,5 @@ asgiref>=3.8.1
 openai>=1.43.0
 pydantic>=2.8.2
 google-api-python-client>=2.147.0
+uvicorn
+apscheduler
