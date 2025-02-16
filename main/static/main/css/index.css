@@ -15,10 +15,13 @@
 
 textarea{
     field-sizing: content;
-    min-height: 3lh;
+    min-height: 5lh;
     resize: none;
-
 }
+textarea.form-control{
+    min-height: 5lh;
+}
+
 body{
     background-color: #f5f5f5;
     font-family: "Shin Go Regular", "メイリオ", Meiryo, sans-serif;
