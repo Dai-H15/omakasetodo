@@ -169,6 +169,7 @@ def task_fetch(goal:Goal):
             messages=messages,
             tools=tools,
         )
+        print(messages)
         if res.choices[0].message.tool_calls:
             messages.append(res.choices[0].message)
             messages = function_call(res, goal, messages)
@@ -253,15 +254,19 @@ def task_help_fetch(goal:Goal, task: Task):
         }
     ]
     for _ in range(MAX_API_CALL):
-        res = client.chat.completions.create(
-            model="gpt-4o",
-            messages=messages,
-            tools=tools,
-        )
-        if res.choices[0].message.tool_calls:
-            messages.append(res.choices[0].message)
-            messages = function_call(res, goal, messages, task=task)
-        else:
-            break
+        try:
+            res = client.chat.completions.create(
+                model="gpt-4o",
+                messages=messages,
+                tools=tools,
+            )
+            print(messages)
+            if res.choices[0].message.tool_calls:
+                messages.append(res.choices[0].message)
+                messages = function_call(res, goal, messages, task=task)
+            else:
+                break
+        except Exception as e:
+            print(e)
     task.task_help_create_completed = True
     task.save()

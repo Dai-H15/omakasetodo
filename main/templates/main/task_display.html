@@ -10,14 +10,14 @@
     <div class = "row">
         {% include "components/menubar.html" %}
 
-        <main class = "col-10" >
+        <main class = "col-12 col-lg-10" >
             <div class = "container p-3" id = "content">
                 <div class="row m-4 py-3 border-bottom border-success text-success">
                     <h4>{{goal.title}} -> [{{task.title}}] タスク詳細</h4>
                 </div>
                 {% if saved %}
                 <div class="d-flex justify-content-center">
-                    <div class="alert alert-success m-4 col-3  text-center">
+                    <div class="alert alert-success m-4 col-6 col-lg-3  text-center">
                             <i class="bi bi-database-check fs-2"></i>
                             保存が完了しました
                     </div>
@@ -28,11 +28,11 @@
                         {% csrf_token %}
                         {% bootstrap_form form %}
                         <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success col-2  mx-auto">更新する</button>
-                            <a class="btn btn-info col-2 mx-auto text-white" href="{% url 'task_help_display' goal_id=goal.goal_id task_id=task.task_id%}">
+                        <button type="submit" class="btn btn-success col-3 col-lg-2  mx-auto">更新する</button>
+                            <a class="btn btn-info col-3 col-lg-2 mx-auto text-white" href="{% url 'task_help_display' goal_id=goal.goal_id task_id=task.task_id%}">
                             アシスト
                             </a>
-                            <a class="btn btn-primary col-2 mx-auto" href="{% url 'task_list' goal.goal_id %}">
+                            <a class="btn btn-primary col-3 col-lg-2 mx-auto" href="{% url 'task_list' goal.goal_id %}">
                             一覧へ戻る
                             </a>
                         </div>
