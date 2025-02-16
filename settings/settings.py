@@ -146,6 +146,13 @@ else:
 
 STATIC_URL = 'static_web/'
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8123',
+    'http://127.0.0.1:8123',
+    "https://omakasetodo.xyz"
+]
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
