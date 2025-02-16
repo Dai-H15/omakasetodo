@@ -149,7 +149,7 @@ STATIC_URL = 'static_web/'
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8123',
     'http://127.0.0.1:8123',
-    "https://omakasetodo.xyz"
+    "https://omakasetodo.xyz/"
 ]
 
 
