@@ -4,17 +4,14 @@
 
 <html lang="ja">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>おまかせTodoリスト</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href=" {% static 'main/css/index.css' %} ">
+    {% include "components/html_head.html" %}
 </head>
 <body>
 <div class = "container-fluid">
     <div class = "row">
         {% include "components/menubar.html" %}
 
-        <main class = "col-10 mx-auto " >
+        <main class = "col-12 col-lg-10 " >
             <div class = "container p-3" id = "content">
                 <div class = "row">
                     <form action="{% url 'signup' %}" method="post">

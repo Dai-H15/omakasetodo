@@ -1,12 +1,23 @@
-#menubar{
+.menubar{
     height: 100vh;
     border-top-right-radius: 50px; /* 右上を丸める */
     background-color: #bbd9fb;
 }
 
+.menubar-mobile{
+    background-color: #bbd9fb;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.menubar-mobile ul{
+    list-style: none;
+}
+
 #content{
     background-color: white;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
 
 }
 #menubar ul{

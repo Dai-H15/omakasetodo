@@ -14,9 +14,10 @@ def signup(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.user_id = secrets.token_urlsafe(32)
+            user.is_active = False
             user.save()
-            login(request, user)
-            return redirect("index")
+            contexts["username"] = user.get_username()
+            return render(request, "accounts/signup_done.html", contexts)
         else:
             contexts["form"] = form
     return render(request, "accounts/signup.html", contexts)

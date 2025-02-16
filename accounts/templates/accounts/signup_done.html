@@ -1,6 +1,7 @@
 <!doctype html>
 {% load static %}
 {% load django_bootstrap5 %}
+
 <html lang="ja">
 <head>
     {% include "components/html_head.html" %}
@@ -10,24 +11,17 @@
     <div class = "row">
         {% include "components/menubar.html" %}
 
-        <main class = "col-12 col-lg-10" >
+        <main class = "col-12 col-lg-10 " >
             <div class = "container p-3" id = "content">
                 <div class = "row">
-                    <div class = "text-center">
-                        最終的に達成したい目標を設定しましょう
+                    <div class = "col-5 text-center mx-auto alert alert-success">
+                        <i class="bi bi-send-check-fill fs-xl"></i><br>
+                        アカウント作成が完了しました<br>
+                        アカウント名[{{ username }}]<br>
+                        管理者の承認後、アプリケーションを利用することができるようになります
                     </div>
-                </div>
 
-                <div class = "row">
-                    <form method = "POST">
-                        {% csrf_token %}
-                        {% bootstrap_form  form %}
-                        <div class ="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-success"> 目標を登録する </button>
-                        </div>
-                    </form>
                 </div>
-
             </div>
         </main>
     </div>
