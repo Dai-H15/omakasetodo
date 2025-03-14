@@ -1,5 +1,5 @@
 .menubar{
-    height: 100vh;
+    height: auto;
     border-top-right-radius: 50px; /* 右上を丸める */
     background-color: #bbd9fb;
 }
