@@ -16,5 +16,7 @@ urlpatterns = [
     path("task_done/<str:goal_id>/<str:task_id>", views.task_done, name="task_done"),
     path("task_help_display/<str:goal_id>/<str:task_id>", views.task_help_display, name="task_help_display"),
     path("create_task_help/<str:goal_id>/<str:task_id>", views.create_task_help, name="create_task_help"),
-    path("check_task_help_create/<str:goal_id>/<str:task_id>", views.check_task_help_create, name="check_task_help_create")
+    path("check_task_help_create/<str:goal_id>/<str:task_id>", views.check_task_help_create, name="check_task_help_create"),
+    path("today_task/", views.today_task, name="today_task"),
+
 ]

@@ -5,9 +5,9 @@
             <div class="text-center mb-3">
                 <img src="{% static 'main/src/omakaseTodo_logo.png' %}" height="70px" width="70px" alt="logo">
             </div>
-            <h4 class = "text-center">
+            <h5 class = "text-center">
                 <a href="{% url 'index' %}"><b>おまかせTodoリスト</b></a>
-            </h4>
+            </h5>
         </div>
         <div class = "row py-2">
             {% if async_func %}
@@ -28,6 +28,13 @@
                     <div class="p-4 menu_item" >
                         目標一覧
                     </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'today_task' %}">
+                        <div class="p-4 menu_item" >
+                            今日までのタスク一覧
+                        </div>
                     </a>
                 </li>
                 <li>
@@ -75,6 +82,13 @@
                     <div class="p-4 menu_item" >
                         目標一覧
                     </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'today_task' %}">
+                        <div class="p-4 menu_item" >
+                            今日までのタスク一覧
+                        </div>
                     </a>
                 </li>
                 <li>

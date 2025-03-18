@@ -305,4 +305,39 @@ def moderate_goal(goal):
     goal.save()
     print("created.")
 
+@login_required
+def today_task(request):
+    contexts = {}
+    try:
+        now = timezone.now().date()
+        goals = Goal.objects.filter(
+            user = request.user,
+            is_created = True,
+            is_completed = False
+        )
+        result = Task.objects.none()
+        for goal in goals:
+            result |= goal.tasks.filter(
+                start_date__lte = now,
+                done_flag = False
+            )
+    except Task.DoesNotExist:
+        return HttpResponse("エラーが発生しました")
+    paginator = Paginator(result, 8)
+    if "page" in request.GET:
+        try:
+            page_num = int(request.GET["page"])
+        except ValueError:
+            page_num = 1
+        if page_num < paginator.num_pages + 1:
+            page_num = request.GET["page"]
+    else:
+        page_num = 1
+    page = paginator.get_page(page_num)
+    contexts["task_num"] = len(result)
+    contexts["tasks"] = page
+    contexts["pages"] = range(1, paginator.num_pages + 1)
+    contexts["current"] = int(page_num)
+    return render(request, "main/today_task.html", contexts)
+
 
